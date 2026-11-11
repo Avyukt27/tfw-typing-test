@@ -43,16 +43,6 @@ body {
   font-size: 2.75rem;
 }
 
-span {
-  color: #f5f5f5a0;
-}
-span.incorrect {
-  color: red;
-}
-span.correct {
-  color: white;
-}
-
 .input_area {
   background-color: #48494b;
   height: 80px;
@@ -73,7 +63,6 @@ span.correct {
   border-radius: 15px;
   padding: 10px;
 }
-
 .restart:hover {
   background-color: #ff0000;
   font-size: 2rem;
@@ -81,4 +70,16 @@ span.correct {
   border: none;
   border-radius: 15px;
   padding: 10px;
+}
+
+span {
+  color: #f5f5f5a0;
+  white-space: pre;
+  text-transform: uppercase;
+}
+span.incorrect {
+  color: red;
+}
+span.correct {
+  color: white;
 }
