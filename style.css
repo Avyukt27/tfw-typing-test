@@ -72,14 +72,18 @@ body {
   padding: 10px;
 }
 
-span {
+span:not(.typer) {
   color: #f5f5f5a0;
   white-space: pre;
   text-transform: uppercase;
 }
-span.incorrect {
+span.incorrect:not(.typer) {
   color: red;
 }
-span.correct {
+span.correct:not(.typer) {
   color: white;
+}
+.typer {
+  position: absolute;
+  visibility: hidden;
 }
