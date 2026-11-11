@@ -64,3 +64,21 @@ span.correct {
   font-weight: 600;
   display: flex;
 }
+
+.restart {
+  background-color: #f30000a0;
+  font-size: 2rem;
+  font-weight: 400;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.restart:hover {
+  background-color: #ff0000;
+  font-size: 2rem;
+  font-weight: 400;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+}
