@@ -16,7 +16,7 @@ let error_text = document.querySelector(".curr_errors");
 let cpm_text = document.querySelector(".curr_cpm");
 let wpm_text = document.querySelector(".curr_wpm");
 let typer = document.querySelector(".typer");
-let spanChars = document.querySelectorAll(".input_area > span");
+let spanChars = document.querySelectorAll(".input_area > span:not(.typer)");
 
 const startGame = () => {
   if (hasStarted) {
@@ -29,7 +29,7 @@ const startGame = () => {
     inputArea.appendChild(span);
   }
   hasStarted = true;
-  spanChars = document.querySelectorAll(".input_area > span");
+  spanChars = document.querySelectorAll(".input_area > span:not(.typer)");
   typer.hidden = false;
 };
 
@@ -38,20 +38,30 @@ const updateText = (key) => {
     return;
   }
 
+  let targetChar = spanChars[currentCharIdx];
+
   if (key.key !== "Backspace") {
-    if (key.key === QUOTE[currentCharIdx] && key.key.length === 1) {
-      spanChars[currentCharIdx].classList.remove("incorrect");
-      spanChars[currentCharIdx].classList.add("correct");
-    } else {
-      spanChars[currentCharIdx].classList.remove("correct");
-      spanChars[currentCharIdx].classList.add("incorrect");
-      errs++;
+    if (key.key.length === 1) {
+      if (key.key === QUOTE[currentCharIdx]) {
+        targetChar.classList.remove("incorrect");
+        targetChar.classList.add("correct");
+      } else {
+        targetChar.classList.remove("correct");
+        targetChar.classList.add("incorrect");
+        errs++;
+      }
+      typer.style.left =
+        targetChar.getBoundingClientRect().right -
+        typer.offsetParent.getBoundingClientRect().left +
+        1 +
+        "px";
+      currentCharIdx++;
     }
-    currentCharIdx++;
   } else {
     currentCharIdx--;
-    spanChars[currentCharIdx].classList.remove("correct");
-    spanChars[currentCharIdx].classList.remove("incorrect");
+    targetChar.classList.remove("correct");
+    targetChar.classList.remove("incorrect");
+    typer.style.left = typer.offsetLeft - 16 + "px";
   }
   console.log(key.key);
 };
