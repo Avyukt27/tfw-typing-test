@@ -112,6 +112,7 @@ function resetValues() {
 
   accuracyText.textContent = 100;
   timerText.textContent = MAX_TIME + "s";
+  errorText.textContent = 0;
 
   wpmGroup.style.display = "none";
   accuracyGroup.style.display = "none";
