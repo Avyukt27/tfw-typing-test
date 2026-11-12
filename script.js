@@ -1,4 +1,10 @@
-const QUOTE = "sphinx of black quartz judge my vow";
+let quotes = [
+  "genius is one percent inspiration and ninety-nine percent perspiration.",
+  "you can observe a lot just by watching.",
+  "a house divided against itself cannot stand.",
+  "difficulties increase the nearer we get to the goal.",
+];
+let quote = "";
 const MAX_TIME = 60;
 
 let hasStarted = false;
@@ -29,7 +35,7 @@ function startGame() {
 
   resetValues();
 
-  for (const char of QUOTE) {
+  for (const char of quote) {
     let span = document.createElement("span");
     span.textContent = char;
     inputArea.appendChild(span);
@@ -53,8 +59,8 @@ function startGame() {
   inputArea.addEventListener("keydown", updateText);
 }
 
-const updateText = (key) => {
-  if (!hasStarted || currentCharIdx === QUOTE.length) {
+function updateText(key) {
+  if (!hasStarted || currentCharIdx === quote.length) {
     return;
   }
 
@@ -64,7 +70,7 @@ const updateText = (key) => {
     if (key.key.length === 1 && currentCharIdx < spanChars.length) {
       const targetChar = spanChars[currentCharIdx];
 
-      if (key.key === QUOTE[currentCharIdx]) {
+      if (key.key === quote[currentCharIdx]) {
         targetChar.classList.remove("incorrect");
         targetChar.classList.add("correct");
       } else {
@@ -90,9 +96,7 @@ const updateText = (key) => {
   if (currentCharIdx === spanChars.length) {
     finishGame();
   }
-
-  console.log(key.key);
-};
+}
 
 function resetValues() {
   hasStarted = false;
@@ -111,6 +115,8 @@ function resetValues() {
 
   wpmGroup.style.display = "none";
   accuracyGroup.style.display = "none";
+
+  quote = quotes[Math.floor(Math.random() * quotes.length)];
 }
 
 function finishGame() {
