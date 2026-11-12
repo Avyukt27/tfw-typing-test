@@ -1,10 +1,22 @@
 const QUOTE = "sphinx of black quartz judge my vow";
+const MAX_TIME = 60;
 
-let currentCharIdx = 0;
 let hasStarted = false;
 
+let currentCharIdx = 0;
+let errs = 0;
+let accuracy = 0;
+let timeLimit = MAX_TIME;
+let timer = null;
+
 let inputArea = document.querySelector(".input_area");
-let spanChars = inputArea.children;
+let timer_text = document.querySelector(".curr_time");
+let accuracy_text = document.querySelector(".curr_accuracy");
+let error_text = document.querySelector(".curr_errors");
+let cpm_text = document.querySelector(".curr_cpm");
+let wpm_text = document.querySelector(".curr_wpm");
+let typer = document.querySelector(".typer");
+let spanChars = document.querySelectorAll(".input_area > span");
 
 const startGame = () => {
   if (hasStarted) {
@@ -17,7 +29,8 @@ const startGame = () => {
     inputArea.appendChild(span);
   }
   hasStarted = true;
-  spanChars = inputArea.children;
+  spanChars = document.querySelectorAll(".input_area > span");
+  typer.hidden = false;
 };
 
 const updateText = (key) => {
@@ -25,12 +38,22 @@ const updateText = (key) => {
     return;
   }
 
-  if (key.key === QUOTE[currentCharIdx]) {
-    spanChars[currentCharIdx + 1].classList.add("correct");
+  if (key.key !== "Backspace") {
+    if (key.key === QUOTE[currentCharIdx] && key.key.length === 1) {
+      spanChars[currentCharIdx].classList.remove("incorrect");
+      spanChars[currentCharIdx].classList.add("correct");
+    } else {
+      spanChars[currentCharIdx].classList.remove("correct");
+      spanChars[currentCharIdx].classList.add("incorrect");
+      errs++;
+    }
     currentCharIdx++;
   } else {
-    spanChars[currentCharIdx + 1].classList.add("incorrect");
+    currentCharIdx--;
+    spanChars[currentCharIdx].classList.remove("correct");
+    spanChars[currentCharIdx].classList.remove("incorrect");
   }
+  console.log(key.key);
 };
 
 inputArea.addEventListener("click", startGame);
