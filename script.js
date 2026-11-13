@@ -123,7 +123,7 @@ function resetValues() {
 function finishGame() {
   clearInterval(timer);
   inputArea.removeEventListener("keydown", updateText);
-  wpm = Math.round((currentCharIdx / 5 / timeElapsed) * 60);
+  wpm = Math.round((currentCharIdx - errs) / 5 / (timeElapsed / 60));
   accuracy = Math.round((1 - errs / spanChars.length) * 100);
   wpmText.textContent = wpm;
   accuracyText.textContent = accuracy;
